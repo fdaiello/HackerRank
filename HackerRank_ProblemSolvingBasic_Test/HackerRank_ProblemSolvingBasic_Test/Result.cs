@@ -64,7 +64,7 @@ namespace HackerRank_ProblemSolvingBasic_Test
             long nZeros;
             long zeroMultiplier;
 
-            var pNumers = new int[numbers.Count+1];
+            var pNumers = new long[numbers.Count+1];
             for (int i = 1; i <= numbers.Count; i++)
             {
                 pNumers[i] = numbers[i-1] + pNumers[i - 1];
@@ -91,11 +91,11 @@ namespace HackerRank_ProblemSolvingBasic_Test
         }
         public static void TestFindSum()
         {
-            var numbers = new List<int>() { 5, 10, 10 };
-            var query = new List<int>() { 1, 2, 5 };
+            var numbers = new List<int>() { int.MaxValue, int.MaxValue, int.MaxValue, int.MaxValue };
+            var query = new List<int>() { 1, 4, 5 };
             var queries = new List<List<int>>() { query };
             Console.WriteLine (String.Join(",",findSum(numbers, queries)));
-            Console.WriteLine("Expected: 15");
+            Console.WriteLine($"Expected: {(long)int.MaxValue*4}");
 
             numbers = new List<int>() { -5, 0 };
             var query1 = new List<int>() { 2, 2, 20 };
@@ -104,6 +104,11 @@ namespace HackerRank_ProblemSolvingBasic_Test
             Console.WriteLine(String.Join(",",findSum(numbers, queries)));
             Console.WriteLine("Expected: 20, 5");
 
+            numbers = new List<int>() { -1, -2, 0, 0 };
+            query = new List<int>() { 1, 4, 10 };
+            queries = new List<List<int>>() { query };
+            Console.WriteLine(String.Join(",", findSum(numbers, queries)));
+            Console.WriteLine("Expected: 17");
 
         }
     }

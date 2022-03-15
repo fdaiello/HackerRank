@@ -6,7 +6,7 @@ namespace HackerRank_ProblemSolvingBasic_Test
     {
         static void Main(string[] args)
         {
-            Result.TestMinimumBalance();
+            Result.TestFindSum();
         }
     }
 }
