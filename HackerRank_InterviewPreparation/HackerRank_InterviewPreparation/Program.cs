@@ -1,11 +1,102 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Globalization;
 
 namespace HackerRank_InterviewPreparation
 {
     class Program
     {
+        static void Main(string[] args)
+        {
+            TestTwoStrings();
+        }
+        public static string twoStrings(string s1, string s2)
+        {
+
+            // Get all different chars of s1
+            var map = new HashSet<char>();
+            for (int i = 0; i < s1.Length; i++)
+            {
+                if (!map.Contains(s1[i]))
+                    map.Add(s1[i]);
+            }
+
+            // For each char in map
+            foreach ( var c in map) 
+            {
+                if (s2.Contains(c))
+                    return "YES";
+            }
+
+            return "NO";
+        }
+        /*
+         * Check only 1 char - faster but not enough
+         */
+        public static string twoStrings2(string s1, string s2)
+        {
+            // Get all chars of s1
+            for ( int i =0; i < s1.Length; i++)
+            {
+                if (s2.Contains(s1[i]))
+                    return "YES";
+            }
+
+            return "NO";
+        }
+        /*
+         *  Brute force
+         */
+        public static string twoStrings1(string s1, string s2)
+        {
+            // Get all substrings of s1
+            for ( int i =0; i < s1.Length; i++)
+            {
+                for ( int j=1; j<s1.Length-i; j++)
+                {
+                    // Check if s2 contains given substring
+                    if (s2.Contains(s1.Substring(i, j)))
+                        return "YES";
+                }
+            }
+
+            return "NO";
+        }
+        public static void TestTwoStrings()
+        {
+            var s1 = "and";
+            var s2 = "art";
+            Console.WriteLine(twoStrings(s1, s2));
+            Console.WriteLine("Expected: YES");
+
+            s1 = "asd";
+            s2 = "fgh";
+            Console.WriteLine(twoStrings(s1, s2));
+            Console.WriteLine("Expected: NO");
+
+        }
+        public static void TestDayOfProgrammer()
+        {
+            Console.WriteLine(dayOfProgrammer(1800));
+        }
+        public static string dayOfProgrammer(int year)
+        {
+            if ( year >= 1919)
+            {
+                // Gregorian Calendar
+                DateTime dt = new DateTime(year, 1, 1);
+                dt = dt.AddDays(255);
+                return dt.ToString("dd.MM.yyyy");
+            }
+            else
+            {
+                // Julian Calenadar
+                DateTime dt = new DateTime(year, 1, 1, new JulianCalendar());
+                dt = dt.AddDays(255);
+                return dt.ToString("dd.MM.yyyy");
+            }
+        }
         public static int migratoryBirds(List<int> arr)
         {
             var map = new Dictionary<int, int>();
@@ -40,10 +131,6 @@ namespace HackerRank_InterviewPreparation
             return pairCount;
         }
 
-        static void Main(string[] args)
-        {
-            TestSelectionSort();
-        }
         /*
          * https://www.hackerrank.com/challenges/minimum-swaps-2/problem
          */
