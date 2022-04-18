@@ -9,7 +9,82 @@ namespace HackerRank_InterviewPreparation
     {
         static void Main(string[] args)
         {
-            TestTwoStrings();
+            TestSherlockAndAnagrams();
+        }
+        public static void TestSherlockAndAnagrams()
+        {
+            string s;
+            s = "mom";
+            Console.WriteLine(sherlockAndAnagrams(s));
+            Console.WriteLine("Expected: 2");
+
+            s = "abba";
+            Console.WriteLine(sherlockAndAnagrams(s));
+            Console.WriteLine("Expected: 4");
+
+            s = "abcd";
+            Console.WriteLine(sherlockAndAnagrams(s));
+            Console.WriteLine("Expected: 0");
+        }
+        /*
+         * Brute Force
+         */
+        public static int sherlockAndAnagrams(string s)
+        {
+            // pair count
+            int paircount = 0;
+
+            // List of substrings
+            var substrings = new List<string>();
+
+            // Find all substrings - traverse array - starting point
+            for ( int i = 0; i < s.Length; i++)
+            {
+                // For all possible lengh from that starting point
+                for ( int l=1; l <= s.Length-i; l++)
+                {
+                    substrings.Add(s.Substring(i, l));
+                }
+            }
+
+            // Check each pair of substring
+            for ( int i=0; i < substrings.Count; i++)
+            {
+                for ( int j=i+1; j<substrings.Count; j++)
+                {
+                    if ( IsAnagram(substrings[i],substrings[j]))
+                        paircount++;
+                }
+            }
+
+            return paircount;
+        }
+        public static bool IsAnagram(string s1, string s2)
+        {
+            // Angrams must be of same lenght
+            if ( s1.Length != s2.Length )
+                return false;
+
+            // Create a dictionary with characters from string s1
+            var map = new Dictionary<char, int>();
+            for ( int i =0; i<s1.Length; i++)
+            {
+                if ( map.ContainsKey(s1[i]) )
+                    map[s1[i]]++;
+                else
+                    map.Add(s1[i], 1);
+            }
+
+            // Now traverse all chars from s2 and check if they are contained at s1
+            foreach ( var c in s2) 
+            {
+                if (map.ContainsKey(c) && map[c] > 0)
+                    map[c]--;
+                else
+                    return false;
+            }
+
+            return true;
         }
         public static string twoStrings(string s1, string s2)
         {
