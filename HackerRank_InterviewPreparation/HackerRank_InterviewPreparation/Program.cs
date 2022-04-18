@@ -9,7 +9,35 @@ namespace HackerRank_InterviewPreparation
     {
         static void Main(string[] args)
         {
-            TestSherlockAndAnagrams();
+            TestCountSwaps();
+        }
+        public static void countSwaps(List<int> a)
+        {
+            bool swaped;
+            int swapCount = 0;
+            do
+            {
+                swaped = false;
+                for (int j = 0; j < a.Count - 1; j++)
+                {
+                    // Swap adjacent elements if they are in decreasing order
+                    if (a[j] > a[j + 1])
+                    {
+                        (a[j],a[j+1]) = (a[j+1],a[j]);
+                        swaped=true;
+                        swapCount++;
+                    }
+                }
+            } while (swaped);
+
+            Console.WriteLine($"Array is sorted in {swapCount} swaps.");
+            Console.WriteLine($"First Element: {a[0]}");
+            Console.WriteLine($"Last Element: {a[^1]}");
+
+        }
+        public static void TestCountSwaps()
+        {
+            countSwaps(new List<int>() { 6, 4, 1 });
         }
         public static void TestSherlockAndAnagrams()
         {
