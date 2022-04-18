@@ -9,7 +9,98 @@ namespace HackerRank_InterviewPreparation
     {
         static void Main(string[] args)
         {
-            TestCountSwaps();
+            TestActivityNotifications();
+        }
+
+        public static int activityNotifications1(List<int> expenditure, int d)
+        {
+            if (expenditure.Count <= d)
+                return 0;
+
+            var trailing = expenditure.GetRange(0, d);
+            var notificationsCount = 0;
+
+            for ( int i =d; i < expenditure.Count; i++)
+            {
+                // check if expediture at the given day is 2x or more than median of trailing days
+                var median = GetMedian1(trailing);
+                if (expenditure[i] >= median * 2)
+                    notificationsCount++;
+
+                // update traling
+                trailing.Add(expenditure[i]);
+                trailing.RemoveAt(0);
+            }
+
+            return notificationsCount;
+
+        }
+        public static decimal GetMedian1(List<int> trailing)
+        {
+            trailing.Sort();
+            // Check if has even or odd number of elements
+            if (trailing.Count % 2 == 0)
+                // Even number - calc average of two middle elements
+                return ((decimal)trailing[trailing.Count / 2] + trailing[trailing.Count / 2 - 1]) / 2;
+            else
+                return (trailing[trailing.Count / 2]);
+        }
+        public static void TestActivityNotifications()
+        {
+            List<int> expenditure;
+            int d;
+
+            expenditure = new List<int>() { 2, 3, 4, 2, 3, 6, 8, 4, 5 };
+            d = 5;
+            Console.WriteLine(activityNotifications1(expenditure, d));
+            Console.WriteLine("Expected: 2");
+
+            expenditure = new List<int>() { 1, 2, 3, 4, 4 };
+            d = 4;
+            Console.WriteLine(activityNotifications(expenditure, d));
+            Console.WriteLine("Expected: 0");
+
+            expenditure = new List<int>() { 10, 20, 30, 40, 50 };
+            d = 3;
+            Console.WriteLine(activityNotifications(expenditure, d));
+            Console.WriteLine("Expected: 1");
+
+            expenditure = new List<int>() { 2, 3, 4, 2, 3, 6, 8, 4, 5 };
+            d = 5;
+            Console.WriteLine(activityNotifications(expenditure, d));
+            Console.WriteLine("Expected: 2");
+
+        }
+        public static int maximumToys(List<int> prices, int k)
+        {
+            prices.Sort();
+          
+            var itemsCont = 0;
+            var amountSpent = 0;
+
+            for ( int i =0; i< prices.Count; i++)
+            {
+                if ( amountSpent + prices[i] <= k)
+                {
+                    amountSpent += prices[i];
+                    itemsCont++;
+                }
+                else
+                {
+                    break;
+                }
+            }
+
+            return itemsCont;
+        }
+        public static void TestMaximumToys()
+        {
+            Console.WriteLine(maximumToys(new List<int>() { 1, 2, 3, 4 }, 7));
+            Console.WriteLine("Expected: 3");
+
+            Console.WriteLine(maximumToys(new List<int>() { 1, 12, 5, 111, 200, 1000, 10 }, 50));
+            Console.WriteLine("Expected: 4");
+
         }
         public static void countSwaps(List<int> a)
         {
