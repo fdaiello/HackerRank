@@ -26,10 +26,56 @@ namespace HackerRank_InterviewPreparation
             Console.WriteLine(sherlockAndAnagrams(s));
             Console.WriteLine("Expected: 0");
         }
+        public static int sherlockAndAnagrams(string s)
+        {
+            // Substring 'signature' dictionary
+            var map = new Dictionary<string, int>();
+
+            // List of substrings
+            var substrings = new List<string>();
+
+            // Find all substrings - traverse array - starting point
+            for (int i = 0; i < s.Length; i++)
+            {
+                // For all possible lengh from that starting point
+                for (int l = 1; l <= s.Length - i; l++)
+                {
+                    // Get substring 'signature' ( map of chars )
+                    string sig = Signature(s.Substring(i, l));
+
+                    // Add to map o signatures
+                    if (map.ContainsKey(sig))
+                        map[sig]++;
+                    else
+                        map.Add(sig, 1);
+
+                }
+            }
+
+            // Count pairs in map
+            int pairsCount = 0;
+            foreach( var kv in map) 
+            {
+                pairsCount += kv.Value * (kv.Value-1) / 2;
+            }
+
+            return pairsCount;
+        }
+        // Return a 'signature' of a substring, based on a map of characteres
+        public static string Signature(string s) 
+        {
+            var signature = new int[26];
+            foreach(var c in s)
+            {
+                signature[c - 'a']++;
+            }
+
+            return String.Join("",signature);
+        }
         /*
          * Brute Force
          */
-        public static int sherlockAndAnagrams(string s)
+        public static int sherlockAndAnagrams1(string s)
         {
             // pair count
             int paircount = 0;
