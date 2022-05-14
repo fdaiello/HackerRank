@@ -9,10 +9,10 @@ namespace HackerRank_InterviewPreparation
     {
         static void Main(string[] args)
         {
-            TestActivityNotifications();
+            Console.Write("Hello");
         }
 
-        public static int activityNotifications1(List<int> expenditure, int d)
+        public static int activityNotifications(List<int> expenditure, int d)
         {
             if (expenditure.Count <= d)
                 return 0;
@@ -52,7 +52,7 @@ namespace HackerRank_InterviewPreparation
 
             expenditure = new List<int>() { 2, 3, 4, 2, 3, 6, 8, 4, 5 };
             d = 5;
-            Console.WriteLine(activityNotifications1(expenditure, d));
+            Console.WriteLine(activityNotifications(expenditure, d));
             Console.WriteLine("Expected: 2");
 
             expenditure = new List<int>() { 1, 2, 3, 4, 4 };
